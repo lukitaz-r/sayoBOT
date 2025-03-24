@@ -1,0 +1,23 @@
+{
+  "name": "sayobot",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/lukitaz-r/sayoBOT#readme",
+  "bugs": {
+    "url": "https://github.com/lukitaz-r/sayoBOT/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukitaz-r/sayoBOT.git"
+  },
+  "license": "ISC",
+  "author": "Luca Ramirez",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "dependencies": {
+    "discord.js": "^14.18.0"
+  }
+}
