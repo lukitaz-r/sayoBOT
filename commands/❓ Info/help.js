@@ -5,8 +5,8 @@ module.exports = {
     aliases: ["h", "ayuda", "bothelp"],
     desc: "Sirve para ver la información del Bot",
     run: async (client, message, args, prefix) => {
-        //definimos las categorias del bot leyendo la ruta ./comandos
-        const categorias = readdirSync('./comandos');
+        //definimos las categorias del bot leyendo la ruta ./commands
+        const categorias = readdirSync('./commands');
         
         if (args[0]) {
             const comando = client.commands.get(args[0].toLowerCase()) || client.commands.find(c => c.aliases && c.aliases.includes(args[0].toLowerCase()));
@@ -23,7 +23,7 @@ module.exports = {
                 if (comando.permisos_bot && comando.permisos_bot.length >= 1) embed.addFields([{name: `🤖 Permisos de BOT requeridos`, value: `${comando.permisos_bot.map(permiso => `\`${permiso}\``).join(", ")}`}], );
                 return message.reply({ embeds: [embed] })
             } else if (categoria) {
-                const comandos_de_categoria = readdirSync(`./comandos/${categoria}`).filter(archivo => archivo.endsWith('.js'));
+                const comandos_de_categoria = readdirSync(`./commands/${categoria}`).filter(archivo => archivo.endsWith('.js'));
                 return message.reply({
                     embeds: [new Discord.EmbedBuilder()
                         .setTitle(`${categoria.split(" ")[0]} ${categoria.split(" ")[1]} ${categoria.split(" ")[0]}`)
@@ -41,23 +41,23 @@ module.exports = {
             let ayuda_embed = new Discord.EmbedBuilder()
             .setTitle(`Ayuda de __${client.user.tag}__`)
             .setColor(client.color)
-            .setDescription(`Bot Multifuncional en desarrollo por \`lukitaz_r\``)
+            .setDescription(`Bot Multifuncional en desarrollo`)
             .addFields([{name: `❓ **__¿Quién soy?__**`, value: `👋 Hola **${message.author.username}**, mi nombre es **__${client.user.username}__**\n🤯 Soy un BOT MULTIFUNCIONAL Incluyendo:\n> **ADMINISTRACIÓN\n> MODERACIÓN\n> MÚSICA**\n*y mucho más!*`}], )
-            .addFields([{name: `📈 **__ESTADÍSTICAS__**`, value: `⚙ **${client.commands.size} Comandos**\n📁 en **${client.guilds.cache.size} Servidores**\n📶 **\`${client.ws.ping}ms\` Ping**\n👤 desarrollado por **lukitaz_r**`}], )
+            .addFields([{name: `📈 **__ESTADÍSTICAS__**`, value: `⚙ **${client.commands.size} Comandos**\n📁 en **${client.guilds.cache.size} Servidores**\n📶 **\`${client.ws.ping}ms\` Ping**`}], )
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
-            .setFooter({ text: `Página 1 / ${categorias.length+1}\n© desarrollado por lukitaz_r  | 2022`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
+            .setFooter({ text: `Página 1 / ${categorias.length+1}\nDesarrollado por lukitaz_r  | ©2025`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
             let embeds_pages = [ayuda_embed];
 
             //por cada categoria, creamos un embed y lo empujamos en embeds_pages
             categorias.map((categoria, index) => {
-                const comandos_de_categoria = readdirSync(`./comandos/${categoria}`).filter(archivo => archivo.endsWith('.js'));
+                const comandos_de_categoria = readdirSync(`./commands/${categoria}`).filter(archivo => archivo.endsWith('.js'));
 
                 let embed = new Discord.EmbedBuilder()
                     .setTitle(`${categoria.split(" ")[0]} ${categoria.split(" ")[1]} ${categoria.split(" ")[0]}`)
                     .setColor(client.color)
                     .setThumbnail(message.guild.iconURL({ dynamic: true }))
                     .setDescription(comandos_de_categoria.length >= 1 ? `>>> *${comandos_de_categoria.map(comando => `\`${comando.replace(/.js/, "")}\``).join(" - ")}*` : `>>> *Todavía no hay comandos en esta categoría...*`)
-                    .setFooter({ text: `Página ${index+2} / ${categorias.length+1}\n© desarrollado por lukitaz_r  | 2022`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
+                    .setFooter({ text: `Página ${index+2} / ${categorias.length+1}\nDesarrollado por lukitaz_r  | ©2025`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
                 embeds_pages.push(embed)
             })
 
@@ -151,14 +151,14 @@ module.exports = {
                     let embeds = [];
                     for (const seleccionado of interaccion.values) {
                         //definimos los comandos leyendo la ruta del valor seleccionado del menú
-                        const comandos_de_categoria = readdirSync(`./comandos/${seleccionado}`).filter(archivo => archivo.endsWith('.js'));
+                        const comandos_de_categoria = readdirSync(`./commands/${seleccionado}`).filter(archivo => archivo.endsWith('.js'));
 
                         let embed = new Discord.EmbedBuilder()
                         .setTitle(`${seleccionado.split(" ")[0]} ${seleccionado.split(" ")[1]} ${seleccionado.split(" ")[0]}`)
                         .setColor(client.color)
                         .setThumbnail(message.guild.iconURL({ dynamic: true }))
                         .setDescription(comandos_de_categoria.length >= 1 ? `>>> *${comandos_de_categoria.map(comando => `\`${comando.replace(/.js/, "")}\``).join(" - ")}*` : `>>> *Todavía no hay comandos en esta categoría...*`)
-                        .setFooter({text: `© desarrollado por lukitaz_r | 2022`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
+                        .setFooter({text: `Desarrollado por lukitaz_r | ©2025`, iconURL: `https://images-ext-1.discordapp.net/external/T5EjeI21k8KpYT8mj9RkAxhsmqN1is3ID6EtG3N21Es/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1052388988368990279/24ea075d629c602addedf9d041a213ac.png?width=691&height=691` })
 
                         embeds.push(embed)
                     }

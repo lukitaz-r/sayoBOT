@@ -1,6 +1,5 @@
 
-const warnSchema = require(`${process.cwd()}/modelos/warns.js`)
-const {asegurar_todo} = require(`${process.cwd()}/utils/funciones.js`)
+const warnSchema = require(`${process.cwd()}/models/warns.js`)
 
 
 
@@ -12,12 +11,12 @@ module.exports = {
     run: async (client, message, args, prefix) => {
       const leaderboard = await warnSchema.find()
         .sort({ warnings: -1 })
-        .limit(10);
+        .limit(10)
   
       const leaderboardMessage = leaderboard
         .map((user, position) => `${position + 1}. <@${user.userID}>: ${user.warnings.length} warnings`)
-        .join('\n');
+        .join('\n')
   
-      message.reply(`Tabla de clasificación:\n${leaderboardMessage}`);
+      message.reply(`Tabla de clasificación:\n${leaderboardMessage}`)
     }
   }

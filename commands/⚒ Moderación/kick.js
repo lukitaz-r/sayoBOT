@@ -7,15 +7,15 @@ module.exports = {
     permisos_bot: ["KickMembers"],
     run: async (client, message, args, prefix) => {
         //definimos la persona a banear
-        let usuario = message.guild.members.cache.get(args[0]) || message.mentions.members.filter(m => m.guild.id == message.guild.id).first();
-        if (!usuario) return message.reply(`❌ **No se ha encontrado al usuario que has especificado!**`);
+        let usuario = message.guild.members.cache.get(args[0]) || message.mentions.members.filter(m => m.guild.id == message.guild.id).first()
+        if (!usuario) return message.reply(`❌ **No se ha encontrado al usuario que has especificado!**`)
 
         //definimos razón, y si no hay, la razón será "No se ha especificado ninguna razón!"
-        let razon = args.slice(1).join(" ");
+        let razon = args.slice(1).join(" ")
         if (!razon) razon = "No se ha especificado ninguna razón!"
 
         //comprobamos que el usuario a banear no es el dueño del servidor
-        if (usuario.id == message.guild.ownerId) return message.reply(`❌ **No puedes expulsar al DUEÑO del Servidor!**`);
+        if (usuario.id == message.guild.ownerId) return message.reply(`❌ **No puedes expulsar al DUEÑO del Servidor!**`)
 
         //comprobar que el BOT está por encima del usuario a banear
         if (message.guild.members.me.roles.highest.position > usuario.roles.highest.position) {
@@ -30,7 +30,7 @@ module.exports = {
                             .setColor(client.color)
                             .setTimestamp()
                     ]
-                }).catch(() => { message.reply(`No se le ha podido enviar el DM al usuario!`) });
+                }).catch(() => { message.reply(`No se le ha podido enviar el DM al usuario!`) })
                 //enviamos en el canal que el usuario ha sido baneado exitosamenete
 
                 message.reply({
